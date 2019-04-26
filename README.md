@@ -2,5 +2,5 @@
 
 | Herramienta o lenguaje   | Logo | 
 | ---------|--------------------| 
-| wordpress | ![wordpress logo](wordpress/img/WordPress-logo.png) | 
+| Wordpress | ![wordpress logo](wordpress/img/WordPress-logo.png) | 
 | Git  | ![git logo](git-guia/img/git.png)  | 
