@@ -1,4 +1,4 @@
-#Cambiar y actualizar las URL de WordPress en la base de datos cuando el sitio se mueve a un nuevo host
+# Cambiar y actualizar las URL de WordPress en la base de datos cuando el sitio se mueve a un nuevo host
 
 ![phpmyadmin](./img/mysql-updates-wordpress.png)
 
