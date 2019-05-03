@@ -107,3 +107,116 @@ function wpbeginner_numeric_posts_nav() {
 
 }
 ```
+
+## Habilitar la extención de svg en wordpress
+Por defecto wordpress no permite la subida de este tipo de archivos, a continuación el código del filtro para habilitar esa opción:
+
+```php
+function cc_mime_types($mimes) {
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');
+```
+
+## Como crear un shostcode
+
+Un shortcode de WordPress es un pequeño código que se inserta en las páginas o entradas de tu web para que aparezca un determinado elemento que no viene por defecto en WordPress.
+
+```php
+function tabs($params = array()) {
+
+	//depende de custom fields pro plugin
+	// default parameters
+	extract(shortcode_atts(array(
+		'idPost' => ''
+	), $params));
+
+	// Return output
+	ob_start();?>
+	<section id="tabs-articulos-relacionados" class="tabs">
+			<?php $articulos = new WP_Query(array(
+				'post_type' => 'articulos',
+				'meta_query' => array(
+					array(
+						'key' => 'relacion', // name of custom field
+						'value' => '"' . get_the_ID() . '"', // matches exactly "123", not just 123. This prevents a match for "1234"
+						'compare' => 'LIKE'
+					)
+				)
+			)); ?>
+			<?php if ( $articulos->have_posts() ) : ?>
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<?php // loop through the rows of data
+					$contT=1;?>
+
+				   	<?php while ( $articulos->have_posts() ) : $articulos->the_post(); ?>
+						<li role="presentation" class="<?php echo ($contT == 1)?'active':''; ?>"><a href="#tab-<?php echo $contT; ?>" aria-controls="#tab-<?php echo $contT; ?>" role="tab" data-toggle="tab"> <?php the_title(); ?></a></li>
+						<?php $contT++; ?>
+				   	<?php endwhile; ?>
+			   	</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<?php // loop through the rows of data
+					$contC = 1;?>
+
+				   	<?php while ( $articulos->have_posts() ) : $articulos->the_post(); ?>
+						<div role="tabpanel" class="tab-pane <?php echo ($contC == 1)?'active':''; ?>" id="tab-<?php echo $contC; ?>">
+							<div class="row">
+								<div class="col-50 texto">
+									<div class="titulo-articulo">
+										<h2><?php the_title(); ?></h2>
+									</div>
+									<div class="tab-texto">
+										<?php the_content(); ?>
+									</div>
+									<?php if (get_field('mostrar_enlace')): ?>
+										<div class="enlace">
+											<a href="<?php echo esc_url(the_field('enlace')); ?>" title="<?php the_title_attribute(); ?>"><?php pll_e("Learn more here"); ?></a>
+										</div>
+									<?php endif ?>
+								</div>
+								<div class="col-50">
+
+									<?php if (get_field('galeria') != false): ?>
+										<?php if (have_rows('galeria')): ?>
+											<div class="imagen-content-tab">
+												<div class="galeria-articulos owl-carousel owl-theme">
+													<?php // loop through the rows of data
+												    while ( have_rows('galeria') ) : the_row(); ?>
+														<?php $imageArti = get_sub_field('imagen_galeria');
+														$size = 'thumbnail-articulos'; // (thumbnail, medium, large, full or custom size)?>
+															<div class="item-galeria">
+																<?php echo wp_get_attachment_image( $imageArti, $size , "", ["class" => "img-responsive"] ); ?>
+																<div class="titulo-galeria">
+																	<?php the_sub_field('titulo'); ?>
+																</div>
+															</div>
+												   	<?php endwhile; ?>
+												</div>
+											</div>
+										<?php endif ?>
+									<?php endif ?>
+
+									<?php if (get_field('galeria') == false): ?>
+										<div class="imagen-content-tab">
+										<?php the_post_thumbnail('thumbnail-articulos', ['class' => 'img-responsive', 'title' =>get_the_title()]); ?>
+										</div>
+									<?php endif ?>
+
+								</div>
+							</div>
+						</div>
+						<?php $contC++; ?>
+				   	<?php endwhile; ?>
+				</div>
+
+			<?php endif ?>
+	</section><?php
+
+	return ob_get_clean();
+}
+add_shortcode('tabs', 'tabs');
+```
