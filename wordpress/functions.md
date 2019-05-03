@@ -1,4 +1,4 @@
-#Como declarar un sidebar
+# Como declarar un sidebar
 Los sidebar sirven para posicionar html en una cierta parte definida de nuestro sitio webm dentro de ellos puedes adicionaar widget y asi se declara el el archivo functions.php.
 
 ```php
