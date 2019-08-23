@@ -1,6 +1,6 @@
 # Creando un archivo WP con filtro de campo personalizado
 
-Este código proporciona la funcionadlidad para crear filtros con Acf plugin, identificando taxonomias, tipos de contenido y contendos relacionados
+Este código proporciona la funcionadlidad para crear filtros con Acf plugin, identificando taxonomias, tipos de contenido y contenidos relacionados
 
 ```php
 // array of filters (field key => field name)

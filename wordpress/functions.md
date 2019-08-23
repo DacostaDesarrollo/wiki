@@ -118,6 +118,36 @@ function cc_mime_types($mimes) {
 }
 add_filter('upload_mimes', 'cc_mime_types');
 ```
+En las ultimas versiones de wordpress esta es la que funciona.
+
+```php
+function add_file_types_to_uploads($file_types){
+	$new_filetypes = array();
+	$new_filetypes['svg'] = 'image/svg+xml';
+	$file_types = array_merge($file_types, $new_filetypes );
+	return $file_types;
+}
+add_action('upload_mimes', 'add_file_types_to_uploads');
+```
+Resgistro de una nueva imagen
+
+```php
+add_image_size( string $name, int $width, int $height, bool|array $crop = false )
+
+add_image_size( 'thumbnail-home', '1024', '600', [ "center", "center"] );
+add_image_size( 'name-your-image', 220, 180, true );
+
+if ( function_exists( 'add_image_size' ) ) add_theme_support( 'post-thumbnails' );
+if ( function_exists( 'add_image_size' ) ) {
+	add_image_size( 'cat-thumb', 200, 200 );
+	add_image_size( 'search-thumb', 220, 180, true );
+}
+
+add_image_size( 'sidebar-thumb', 120, 120, true ); // Hard Crop Mode
+add_image_size( 'homepage-thumb', 220, 180 ); // Soft Crop Mode
+add_image_size( 'singlepost-thumb', 590, 9999 ); // Unlimited Height Mode
+
+```
 
 ## Como crear un shostcode
 
