@@ -18,3 +18,11 @@ y recuerde darle permiso a la carpeta del proyecto
 ```bash
 sudo chmod 777 -R proyect/
 ```
+
+#Eliminar las etiquetas en los campos de contact form 7
+
+Las etiquetas `<p>` y `<br/>` de los formularios contactform7 se eliminaran cuando esta propieddad con valor `false` se inserte en el wp-config:
+
+```php
+define('WPCF7_AUTOP', false);
+```

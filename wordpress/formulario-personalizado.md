@@ -1,6 +1,6 @@
 ## Como crear un formulario en el frontend con campos personalizados
 
-1. crear  el formulario personalizados con cada unos de los campos
+1. crear  el formulario personalizados con cada unos de los campos ACF, el campo personalizado empresa que es utilizado en este ejemplo debe de estar creado con el plugin Advanced Custom Fields en este plugin se basa este tutorial
 
 ```html
 <h3 class="title-form">Mi formulario*</h3>
@@ -23,7 +23,7 @@
 </form>
 ```
 
-2. Crear un nuevo script exponiendo la ruta de las peticiones en wordpress 
+2. Crear un nuevo script exponiendo la ruta de las peticiones en wordpress
 
 ```php
 wp_localize_script('mi-ajax','cms_vars',['ajaxurl'=>admin_url('admin-ajax.php')]);
