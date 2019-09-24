@@ -34,7 +34,7 @@ Para asignar un sidebar en una parte del template simplemente ponemos este códi
 <?php endif; ?>
 ```
 
-##Paginación en wordpres con números
+## Paginación en wordpres con números (solo uso en categorías)
 
 Esta función nos imprime de una manera más clara la cantidad de páginas dividida en números, ya que la paginación por defecto de wordpress no nos permite mostrar ese dato
 
@@ -108,6 +108,68 @@ function wpbeginner_numeric_posts_nav() {
 }
 ```
 
+## Paginación para paginas tipo page y wp_query personalizados
+
+```php
+
+<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
+		<?php $tecnologias = new WP_Query( array(
+		    'post_type' => 'tecnologias',
+		    'post_status' => 'publish',
+		    'posts_per_page' => 8,
+		    'paged' => $paged
+		) );
+
+		if ( $tecnologias->have_posts() ) : ?>
+			<section class="tecnologias-list">
+		    	<?php while ( $tecnologias->have_posts() ) : $tecnologias->the_post();?>
+					<div class="item-tecnologia">
+						<?php the_title() ?>
+					</div>
+		    	<?php endwhile; wp_reset_postdata(); ?>
+				<!-- show pagination here -->
+		    	<div class="pagination">
+				    <?php
+				    //is_rtl() Determina si la configuración regional actual es de derecha a izquierda (RTL).
+
+				    $prev_arrow = is_rtl() ? '<span class="text_np">Siguiente</span><span class="arrow_next">›</span>' : '<span class="arrow_prev">‹</span><span class="text_np">Anterior</span>';
+
+					$next_arrow = is_rtl() ? '<span class="arrow_prev">‹</span><span class="text_np">Anterior</span>' : '<span class="text_np">Siguiente</span><span class="arrow_next">›</span>';
+					//optienes el numero maximo de páginas
+					$total = $tecnologias->max_num_pages;
+					$big = 999999999; // necesita un entero improbable
+					if( $total > 1 )  {
+						 if( !$current_page = get_query_var('paged') )
+							 $current_page = 1;
+						 if( get_option('permalink_structure') ) {
+							 $format = 'page/%#%/';
+						 } else {
+							 $format = '&paged=%#%';
+						 }
+						echo paginate_links(array(
+							'base'			=> str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+							'format'		=> $format,
+							'current'		=> max( 1, get_query_var('paged') ),
+							'total' 		=> $total,
+							'mid_size'		=> 3,
+							'type' 			=> 'list',
+							'prev_text'		=> $prev_arrow,
+							'next_text'		=> $next_arrow,
+						 ) );
+					} ?>
+				</div>
+
+			</section>
+
+		<?php else : ?>
+		    <!-- show 404 error here -->
+		    <h2>No hay tecnologías</h2>
+		<?php endif; ?>
+
+```
+
+
+
 ## Habilitar la extención de svg en wordpress
 Por defecto wordpress no permite la subida de este tipo de archivos, a continuación el código del filtro para habilitar esa opción:
 
@@ -150,7 +212,7 @@ add_image_size( 'singlepost-thumb', 590, 9999 ); // Unlimited ight Mode
 
 ```
 
-## Como crear un shostcode
+## Como crear un shostcode con los tabs de bootstrap 3
 
 Un shortcode de WordPress es un pequeño código que se inserta en las páginas o entradas de tu web para que aparezca un determinado elemento que no viene por defecto en WordPress.
 
