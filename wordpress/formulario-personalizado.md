@@ -128,7 +128,7 @@ function cms_enviar_contenido()
 	wp_die();
 }
 
-//funcón que nos permite gestionar el archivo y guardarlo en el entorno wordpress
+//función que nos permite gestionar el archivo y guardarlo en el entorno wordpress
 function update_attachment( $f, $pid ){
 
 		wp_update_attachment_metadata( $pid, $f );
