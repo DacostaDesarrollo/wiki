@@ -1,6 +1,6 @@
-# Actualizacion de version de nodejs
+# Actualización de versión de nodejs
 
-Estos con los comandos necesarios para la actualizacin a la ultima versin estable de nodejs
+Estos con los comandos necesarios para la actualización a la ultima versión estable de nodejs
 
 ```
 sudo npm cache clean -f
