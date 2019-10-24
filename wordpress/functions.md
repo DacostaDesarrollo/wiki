@@ -313,3 +313,29 @@ function tabs($params = array()) {
 }
 add_shortcode('tabs', 'tabs');
 ```
+
+## Limite para los textos cortos de excerpt()
+
+para limitar la cantidad de palabras utilizamos el siguiente hook
+
+```php
+// Filter except length to 35 words.
+// tn custom excerpt length
+function tn_custom_excerpt_length( $length ) {
+return 35;
+}
+add_filter( 'excerpt_length', 'tn_custom_excerpt_length', 999 );
+```
+
+## Personalizar el fin del texto cortado por excerpt()
+
+Por defexto wordpress el fin del texto lo visualiza con [...] para cambiarlo basta con utilizar el siguiente hook
+
+```php
+// Replaces the excerpt "Read More"
+function new_excerpt_more($more) {
+	return '...';
+}
+add_filter('excerpt_more', 'new_excerpt_more');
+
+```
