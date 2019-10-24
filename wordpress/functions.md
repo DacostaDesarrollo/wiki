@@ -407,8 +407,8 @@ function dynamic_select_list( $tag ) {
 
         foreach( $terms as $term ) {
 
-            $tag['raw_values'][] = $term->slug;  
-		    $tag['values'][] = $term->slug;  
+            $tag['raw_values'][] = $term->slug;
+		    $tag['values'][] = $term->slug;
 		    $tag['labels'][] = $term->name;
 
         }
