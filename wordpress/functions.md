@@ -194,21 +194,25 @@ add_action('upload_mimes', 'add_file_types_to_uploads');
 Resgistro de una nueva imagen
 
 ```php
-add_image_size( string $name, int $width, int $height, bool|array $crop = false )
 
-add_image_size( 'thumbnail-home', '1024', '600', [ "center", "center"] );
-add_image_size( 'name-your-image', 220, 180, true );
-
+//add_image_size( string $name, int $width, int $height, bool|array $crop = false )
 if ( function_exists( 'add_image_size' ) ) add_theme_support( 'post-thumbnails' );
 if ( function_exists( 'add_image_size' ) ) {
+
+	add_image_size( 'thumbnail-home', '1024', '600', [ "center", "center"] );
+	add_image_size( 'name-your-image', 220, 180, true );
+
 	add_image_size( 'cat-thumb', 200, 200 );
 	add_image_size( 'search-thumb', 220, 180, true );
+
+    add_image_size( 'sidebar-thumb', 120, 120, true ); // Hard Crop Mode
+    add_image_size( 'homepage-thumb', 220, 180 ); // Soft Crop Mode
+    add_image_size( 'singlepost-thumb', 590, 9999 ); // Unlimited Hee
+    add_image_size( 'singlepost-thumb', 590, 9999 ); // Unlimited ight Mode
+
 }
 
-add_image_size( 'sidebar-thumb', 120, 120, true ); // Hard Crop Mode
-add_image_size( 'homepage-thumb', 220, 180 ); // Soft Crop Mode
-add_image_size( 'singlepost-thumb', 590, 9999 ); // Unlimited Hee
-add_image_size( 'singlepost-thumb', 590, 9999 ); // Unlimited ight Mode
+
 
 ```
 
@@ -320,7 +324,7 @@ para limitar la cantidad de palabras utilizamos el siguiente hook
 
 ```php
 // Filter except length to 35 words.
-// tn custom excerpt length
+// custom excerpt length
 function tn_custom_excerpt_length( $length ) {
 return 35;
 }
@@ -329,7 +333,7 @@ add_filter( 'excerpt_length', 'tn_custom_excerpt_length', 999 );
 
 ## Personalizar el fin del texto cortado por excerpt()
 
-Por defexto wordpress el fin del texto lo visualiza con [...] para cambiarlo basta con utilizar el siguiente hook
+Por defexto wordpress inserta este comodin [...] para personalizarlo basta con utilizar el siguiente hook
 
 ```php
 // Replaces the excerpt "Read More"
@@ -339,3 +343,81 @@ function new_excerpt_more($more) {
 add_filter('excerpt_more', 'new_excerpt_more');
 
 ```
+
+## Hook de contact form 7 para crear un select dinámico de taxonomia
+
+Si no quieres instalar un plugin que haga esta tarea solo tienes que personalizar este hook para listar contenido en el select de contact form 7
+
+```php
+/**
+ * Dynamic Select List for Contact Form 7
+ * @usage [select name taxonomy:{$taxonomy} ...]
+ *
+ * @param Array $tag
+ *
+ * @return Array $tag
+ */
+function dynamic_select_list( $tag ) {
+
+    // Only run on select lists
+    if( 'select' !== $tag['type'] && ('select*' !== $tag['type']) ) {
+        return $tag;
+    } else if ( empty( $tag['options'] ) ) {
+        return $tag;
+    }
+
+    $term_args = array();
+
+    // Loop thorugh options to look for our custom options
+    foreach( $tag['options'] as $option ) {
+
+        $matches = explode( ':', $option );
+
+        if( ! empty( $matches ) ) {
+
+            switch( $matches[0] ) {
+
+                case 'taxonomy':
+                    $term_args['taxonomy'] = $matches[1];
+                    break;
+
+                case 'parent':
+                    $term_args['parent'] = intval( $matches[1] );
+                    break;
+
+            }
+        }
+
+    }
+
+    // Ensure we have a term arguments to work with
+    if( empty( $term_args ) ) {
+        return $tag;
+    }
+
+    // Merge dynamic arguments with static arguments
+    $term_args = array_merge( $term_args, array(
+        'hide_empty' => false,
+    ) );
+
+    $terms = get_terms( $term_args );
+
+    // Add terms to values
+    if( ! empty( $terms ) && ! is_wp_error( $term_args ) ) {
+
+        foreach( $terms as $term ) {
+
+            $tag['raw_values'][] = $term->slug;  
+		    $tag['values'][] = $term->slug;  
+		    $tag['labels'][] = $term->name;
+
+        }
+    }
+
+    return $tag;
+
+}
+add_filter( 'wpcf7_form_tag', 'dynamic_select_list', 10 );
+
+```
+
