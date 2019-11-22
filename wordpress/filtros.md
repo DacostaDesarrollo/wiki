@@ -190,7 +190,7 @@ El siguiente código llama al evento de los filtros por medio de javascript, adi
 	$('#archive-filters').on('change', 'input[type="checkbox"],select,input', function(){
 
 		// vars
-		var url = '<?php echo home_url('property'); ?>';
+		var url = location.protocol + '//' + location.host + location.pathname;
 			args = {};
 
 		// loop over filters
@@ -201,7 +201,7 @@ El siguiente código llama al evento de los filtros por medio de javascript, adi
 				vals = [];
 
 			// find checked inputs
-			$(this).find('input:checked').each(function(){
+			$(this).find('input:checked,select').each(function(){
 				vals.push( $(this).val() );
 			});
 
