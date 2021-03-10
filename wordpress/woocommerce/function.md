@@ -26,7 +26,7 @@ function sv_remove_product_page_skus( $enabled ) {
 add_filter( 'wc_product_sku_enabled', 'sv_remove_product_page_skus' );
 ```
 
-#Mostrar imágenes de la galería en el catálogo de WooCommerce
+# Mostrar imágenes de la galería en el catálogo de WooCommerce
 
 ```php
 
@@ -46,7 +46,7 @@ function dl_galeria_fuera_en_tienda() {
 ```
 
 
-#Hook de woocommerce 
+# Hook de woocommerce 
 
 ```php
 /**
