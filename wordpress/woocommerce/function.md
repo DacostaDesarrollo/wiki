@@ -13,7 +13,7 @@ function woo_remove_product_tabs( $tabs ) {
 }
 ```
 
-#Remover el sku de los productos
+# Remover el sku de los productos
 
 Este campo es el identificador de cada producto normalmente es util para el inventario
 ```php
