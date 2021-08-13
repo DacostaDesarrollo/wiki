@@ -330,3 +330,13 @@ add_action( 'woocommerce_account_payment-methods_endpoint', 'woocommerce_account
 add_action( 'woocommerce_account_add-payment-method_endpoint', 'woocommerce_account_add_payment_method' );
 add_action( 'woocommerce_account_edit-account_endpoint', 'woocommerce_account_edit_account' );
 ```
+# Elimina el zoom de la imagen cuando se pasa el mouse por encima
+
+```php
+add_filter ('woocommerce_single_product_zoom_options', 'custom_single_product_zoom_options', 10, 3);
+function custom_single_product_zoom_options ($zoom_options) {
+    // Desactivar zoom magnificar:
+    $zoom_options ['magnify'] = 0;
+    return $zoom_options;
+}
+```
