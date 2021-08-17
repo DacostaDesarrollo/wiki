@@ -345,29 +345,31 @@ function custom_single_product_zoom_options ($zoom_options) {
 
 WooCommerce proporciona todos los campos esenciales para su página de pago. De forma predeterminada, solicita a los clientes:
 
-Detalles de facturación
-Nombre de pila
-Apellido
-Nombre de empresa
-País
-Dirección
-Pueblo / Ciudad
-Distrito
-Código postal / ZIP
-Teléfono
-Dirección de correo electrónico
-Pedidos
+-Detalles de facturación
+-Nombre de pila
+-Apellido
+-Nombre de empresa
+-País
+-Dirección
+-Pueblo / Ciudad
+-Distrito
+-Código postal / ZIP
+-Teléfono
+-Dirección de correo electrónico
+-Pedidos
+
 Hay muchas formas de personalizar la página, que incluyen:
 
-Editando el diseño
-Cambiar el texto en el botón "Realizar pedido" 
-Eliminar un campo
-Hacer un campo obligatorio (o no obligatorio)
-Cambiar las etiquetas de los campos de entrada y el texto del marcador de posición
-Recopilar los números de cuenta de los clientes
-Verificación de una preferencia de entrega
-Permitir a los clientes solicitar una fecha de entrega o un plazo
-Establecer un método de contacto preferido
+-Editando el diseño
+-Cambiar el texto en el botón "Realizar pedido" 
+-Eliminar un campo
+-Hacer un campo obligatorio (o no obligatorio)
+-Cambiar las etiquetas de los campos de entrada y el texto del marcador de posición
+-Recopilar los números de cuenta de los clientes
+-Verificación de una preferencia de entrega
+-Permitir a los clientes solicitar una fecha de entrega o un plazo
+-Establecer un método de contacto preferido
+
 Estas son solo algunas de las personalizaciones que puede realizar; WooCommerce proporciona una flexibilidad casi infinita para todos los niveles de experiencia. Si se siente cómodo editando código, puede personalizarlo con fragmentos de código. Si prefiere un poco más de estructura, hay una variedad de extensiones y complementos para editar los campos de pago.
 
 ```php
