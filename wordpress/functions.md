@@ -418,6 +418,40 @@ function dynamic_select_list( $tag ) {
 
 }
 add_filter( 'wpcf7_form_tag', 'dynamic_select_list', 10 );
+```
+## Activar las opciones generales en un sitio
+```php
+if( function_exists('acf_add_options_page') ) {
+	
+	acf_add_options_page(array(
+		'page_title' 	=> 'Opciones generales',
+		'menu_title'	=> 'Opciones generales',
+		'menu_slug' 	=> 'opciones',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
+
+}
+
+//ejemplo
+
+<div class="redes item_footer">
+	<h2>Síguenos</h2>
+	<?php if (get_field('instagram','option')): ?>
+		<a class="icon-instagram" target="_blank" href="<?php the_field('instagram','option'); ?>"></a>
+	<?php endif ?>
+
+	<?php if (get_field('facebook','option')): ?>
+		<a class="icon-facebook" target="_blank" href="<?php the_field('facebook','option'); ?>"></a>
+	<?php endif ?>
+
+	<?php if (get_field('youtube','option')): ?>
+		<a class="icon-youtube" target="_blank" href="<?php the_field('youtube','option'); ?>"></a>
+	<?php endif ?>
+
+	<?php if (get_field('twitter','option')): ?>
+		<a class="icon-twitter" target="_blank" href="<?php the_field('twitter','option'); ?>"></a>
+	<?php endif ?>
+</div>
 
 ```
-
