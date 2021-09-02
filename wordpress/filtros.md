@@ -85,7 +85,9 @@ function my_pre_get_posts( $query ) {
 			            'compare'	=> 'IN',
 			        );
 		    	}
-
+			//si se esta buscando en por el titulo del post
+			if($key == 'search')
+				$query->set( 's',$value );
 			}
 		}
 	}
