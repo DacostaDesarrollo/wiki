@@ -1,4 +1,4 @@
-# Titulo al lado de la galeria (woocommerce_single_product_summary)
+# Título al lado de la galería (woocommerce_single_product_summary)
 ```php
 /**
  * Título de primero al lado de la galería
