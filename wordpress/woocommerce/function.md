@@ -1,17 +1,11 @@
-Reardena los tabs del producto
+# Titulo al lado de la galeria ()
 ```php
 /**
- * Reorder product data tabs
+ * Título de primero al lado de la galería
  */
-add_filter( 'woocommerce_product_tabs', 'woo_reorder_tabs', 98 );
-function woo_reorder_tabs( $tabs ) {
 
-	$tabs['reviews']['priority'] = 5;			// Reviews first
-	$tabs['description']['priority'] = 10;			// Description second
-	$tabs['additional_information']['priority'] = 15;	// Additional information third
-
-	return $tabs;
-}
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title ');
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 1 );
 ```
 
 # Adicionar contenedor personalizado al la página del producto
