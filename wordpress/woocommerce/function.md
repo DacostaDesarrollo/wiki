@@ -1,4 +1,4 @@
-# Titulo al lado de la galeria ()
+# Titulo al lado de la galeria (woocommerce_single_product_summary)
 ```php
 /**
  * Título de primero al lado de la galería
@@ -6,6 +6,20 @@
 
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title ');
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 1 );
+```
+
+# Adicionar descripción del producto en (woocommerce_single_product_summary)
+
+```php
+add_action( 'woocommerce_after_single_product_summary', 'bbloomer_wc_output_long_description', 10 );
+  
+function bbloomer_wc_output_long_description() {
+?>
+   <div class="woocommerce-description">
+   <?php the_content(); ?>
+   </div>
+<?php
+}
 ```
 
 # Adicionar contenedor personalizado al la página del producto
