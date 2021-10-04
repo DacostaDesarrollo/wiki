@@ -1,3 +1,43 @@
+# Título al lado de la galería (woocommerce_single_product_summary)
+```php
+/**
+ * Título de primero al lado de la galería
+ */
+
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title ');
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 1 );
+```
+
+# Adicionar descripción del producto en (woocommerce_single_product_summary)
+
+```php
+add_action( 'woocommerce_after_single_product_summary', 'bbloomer_wc_output_long_description', 10 );
+  
+function bbloomer_wc_output_long_description() {
+?>
+   <div class="woocommerce-description">
+   <?php the_content(); ?>
+   </div>
+<?php
+}
+```
+
+# Adicionar contenedor personalizado al la página del producto
+
+Cubre toda la información del prodcucto
+```php
+add_action('woocommerce_before_main_content', 'my_theme_wrapper_start', 10);
+add_action('woocommerce_after_main_content', 'my_theme_wrapper_end', 10);
+
+function my_theme_wrapper_start() {
+    echo '<div class="contendor_principal">';
+}
+
+function my_theme_wrapper_end() {
+    echo '</div>';
+}
+```
+
 # Eliminar pestañas de productos
 
 Estas pestañas aparecen en la parte inferior de la interna del producto se eliminan con esta instrucción.
@@ -297,4 +337,63 @@ add_action( 'woocommerce_account_edit-address_endpoint', 'woocommerce_account_ed
 add_action( 'woocommerce_account_payment-methods_endpoint', 'woocommerce_account_payment_methods' );
 add_action( 'woocommerce_account_add-payment-method_endpoint', 'woocommerce_account_add_payment_method' );
 add_action( 'woocommerce_account_edit-account_endpoint', 'woocommerce_account_edit_account' );
+```
+# Elimina el zoom de la imagen cuando se pasa el mouse por encima
+
+```php
+add_filter ('woocommerce_single_product_zoom_options', 'custom_single_product_zoom_options', 10, 3);
+function custom_single_product_zoom_options ($zoom_options) {
+    // Desactivar zoom magnificar:
+    $zoom_options ['magnify'] = 0;
+    return $zoom_options;
+}
+```
+# Cómo personalizar los campos de pago de WooCommerce
+
+
+WooCommerce proporciona todos los campos esenciales para su página de pago. De forma predeterminada, solicita a los clientes:
+
+- Detalles de facturación
+- Nombre de pila
+- Apellido
+- Nombre de empresa
+- País
+- Dirección
+- Pueblo / Ciudad
+- Distrito
+- Código postal / ZIP
+- Teléfono
+- Dirección de correo electrónico
+- Pedidos
+
+Hay muchas formas de personalizar la página, que incluyen:
+
+- Editando el diseño
+- Cambiar el texto en el botón "Realizar pedido" 
+- Eliminar un campo
+- Hacer un campo obligatorio (o no obligatorio)
+- Cambiar las etiquetas de los campos de entrada y el texto del marcador de posición
+- Recopilar los números de cuenta de los clientes
+- Verificación de una preferencia de entrega
+- Permitir a los clientes solicitar una fecha de entrega o un plazo
+- Establecer un método de contacto preferido
+
+Estas son solo algunas de las personalizaciones que puede realizar; WooCommerce proporciona una flexibilidad casi infinita para todos los niveles de experiencia. Si se siente cómodo editando código, puede personalizarlo con fragmentos de código. Si prefiere un poco más de estructura, hay una variedad de extensiones y complementos para editar los campos de pago.
+
+```php
+add_filter('woocommerce_checkout_fields', 'custom_override_checkout_fields');
+function custom_override_checkout_fields($fields)
+ {
+	 unset($fields['billing']['billing_address_2']);
+	 $fields['billing']['billing_company']['placeholder'] = 'Business Name';
+	 $fields['billing']['billing_company']['label'] = 'Business Name';
+	 $fields['billing']['billing_first_name']['placeholder'] = 'First Name'; 
+	 $fields['shipping']['shipping_first_name']['placeholder'] = 'First Name';
+	 $fields['shipping']['shipping_last_name']['placeholder'] = 'Last Name';
+	 $fields['shipping']['shipping_company']['placeholder'] = 'Company Name'; 
+	 $fields['billing']['billing_last_name']['placeholder'] = 'Last Name';
+	 $fields['billing']['billing_email']['placeholder'] = 'Email Address ';
+	 $fields['billing']['billing_phone']['placeholder'] = 'Phone ';
+	 return $fields;
+ }
 ```
