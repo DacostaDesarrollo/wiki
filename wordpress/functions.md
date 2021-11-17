@@ -455,3 +455,48 @@ if( function_exists('acf_add_options_page') ) {
 </div>
 
 ```
+
+## Shortcode para mostrar un menú de WordPress
+
+```php
+function rv_print_menu_shortcode( $atts ) {
+
+	/**
+	 * Normalize
+	 *
+	 * Como medida de seguridad limpiamos los atributos
+	 * introducidos al escribir el Shortcode.
+	 */
+	$atts = array_change_key_case( (array) $atts, CASE_LOWER );
+	$atts = array_map( 'sanitize_text_field', $atts );
+
+	/**
+	 * Atributtes
+	 *
+	 * A continuación guardamos los atributos en 2 variables
+	 */
+	$menu_name  = $atts['name'];
+	$menu_class = $atts['class'];
+
+	/**
+	 * Creamos la variable $menu_output que va a retornar todo
+	 * lo que conforma nuestro menú y llamamos a la función
+	 * de WordPress wp_nav_menu() y le pasamos como
+	 * parámetros nuestros atributos.
+	 */
+	$menu_output = '<div class="shortcode-menu">';
+
+	$menu_output .= wp_nav_menu( array(
+		'menu'       => esc_attr( $menu_name ),
+		'menu_class' => 'menu ' . esc_attr( $menu_class ),
+		'echo'       => false
+	) );
+
+	$menu_output .= '</div>';
+
+	return $menu_output;
+
+}
+
+add_shortcode( 'print-menu', 'rv_print_menu_shortcode' );
+```
