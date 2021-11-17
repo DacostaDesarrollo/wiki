@@ -499,4 +499,8 @@ function rv_print_menu_shortcode( $atts ) {
 }
 
 add_shortcode( 'print-menu', 'rv_print_menu_shortcode' );
+//ejemplo
+[print-menu name="nombre-menu" class="nombre-clase"]
+
 ```
+
