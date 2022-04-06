@@ -1,3 +1,9 @@
+# soporte para woocommerce si el tema por default no lo tiene
+```php
+add_theme_support( 'woocommerce' );
+
+```
+
 # Título al lado de la galería (woocommerce_single_product_summary)
 ```php
 /**
