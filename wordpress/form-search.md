@@ -8,6 +8,7 @@
             placeholder="<?php echo esc_attr_x( 'Search …', 'placeholder' ) ?>"
             value="<?php echo get_search_query() ?>" name="s"
             title="<?php echo esc_attr_x( 'Search for:', 'label' ) ?>" />
+            <input type="hidden" name="post_type[]" value="book" />
     </label>
     <input type="submit" class="search-submit" value="<?php echo esc_attr_x( 'Search', 'submit button' ) ?>" />
 </form>
