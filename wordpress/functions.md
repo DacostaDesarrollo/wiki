@@ -34,7 +34,7 @@ Para asignar un sidebar en una parte del template simplemente ponemos este códi
 <?php endif; ?>
 ```
 
-## Paginación en wordpres con números (solo uso en categorías)
+## Paginación en wordpres con números (solo uso en archive)
 
 Esta función nos imprime de una manera más clara la cantidad de páginas dividida en números, ya que la paginación por defecto de wordpress no nos permite mostrar ese dato
 
