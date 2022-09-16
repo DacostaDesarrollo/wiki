@@ -439,3 +439,39 @@ function custom_add_to_cart_text() {
 	return 'Add to cart'; // Change this to change the text on the Default button.
 }
 ```
+# Eliminar un termino de un atributo(taxonomia) en woocommerce 
+
+Es dificil encontrar como eliminar un atributo de taxonomia por ajax aca esta el código
+```php
+
+function delete_attribute_term() {
+		global $WCFM, $WCFMu, $_POST;
+		
+		$taxonomy = esc_attr( $_POST['taxonomy'] );
+		$term     = wc_clean( $_POST['term'] );
+		$wcfm_attr_term_pending = wcfm_get_option( 'wcfm_attr_term_pending', array() );
+
+		if ( taxonomy_exists( $taxonomy ) ) {
+
+			$result = wp_delete_term( $term, $taxonomy );
+
+			if ( is_wp_error( $result ) ) {
+				wp_send_json( array(
+					'error' => $result->get_error_message(),
+				) );
+			} else {
+				delete_term_attrubutes($wcfm_attr_term_pending,(int) $term);
+				
+				wp_send_json( array(
+					'status' => true,
+					'name'    => $taxonomy,
+					'slug'    => $term,
+				) );
+			}
+		}
+		wp_die( -1 );
+}
+add_action('wp_ajax_delete_attribute_term', 'delete_attribute_term' );
+add_action( 'wp_ajax_nopriv_delete_attribute_term', 'delete_attribute_term' );
+
+```
