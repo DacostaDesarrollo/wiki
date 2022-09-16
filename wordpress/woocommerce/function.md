@@ -439,9 +439,9 @@ function custom_add_to_cart_text() {
 	return 'Add to cart'; // Change this to change the text on the Default button.
 }
 ```
-# Eliminar un termino de un atributo(taxonomia) en woocommerce 
+# Eliminar un término de un atributo(taxonomia) en woocommerce 
 
-Es dificil encontrar como eliminar un atributo de taxonomia por ajax aca esta el código
+Es dificil encontrar como eliminar un término de taxonomia por ajax aca esta el código:
 ```php
 
 function delete_attribute_term() {
