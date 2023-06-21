@@ -455,3 +455,12 @@ add_action('wp_ajax_delete_attribute_term', 'delete_attribute_term' );
 add_action( 'wp_ajax_nopriv_delete_attribute_term', 'delete_attribute_term' );
 
 ```
+# Como ocultar el precio de las variaciones
+```php
+// Ocultar precio de las variaciones
+add_filter('woocommerce_available_variation', 'ocultar_precio_variaciones', 10, 3);
+function ocultar_precio_variaciones($data, $product, $variation) {
+    $data['price_html'] = '';
+    return $data;
+}
+```
