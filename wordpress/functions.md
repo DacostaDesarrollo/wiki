@@ -532,3 +532,11 @@ add_shortcode( 'print-menu', 'rv_print_menu_shortcode' );
 }
 add_filter( 'site_transient_update_plugins', 'disable_plugin_updates' );
 ```
+# Quitar las actualizaciones de los temas de wordpress
+```php 
+<?php
+//Disable automatic theme updates
+add_filter( 'auto_update_theme', '__return_false' );
+//Disable theme update notifications
+add_filter('pre_site_transient_update_themes','remove_core_updates'); 
+```
